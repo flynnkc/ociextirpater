@@ -1,0 +1,10 @@
+certifi==2024.2.2
+cffi==1.16.0
+circuitbreaker==1.4.0
+cryptography==37.0.2
+oci==2.78.0
+pycparser==2.22
+pyOpenSSL==22.0.0
+python-dateutil==2.9.0.post0
+pytz==2024.1
+six==1.16.0
