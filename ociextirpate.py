@@ -5,7 +5,7 @@ import logging
 
 __requires__ = 'oci==2.78.0'
 
-if __name__ == "__main__":
+def extirpate():
 
     logging.basicConfig(format='%(asctime)s %(threadName)s %(levelname)7s %(module)s:%(funcName)s -> %(message)s', level=logging.INFO)
     logging.info("Starting up")
@@ -40,3 +40,7 @@ if __name__ == "__main__":
         except Exception as e:
             logging.error("Exception caught")
             logging.debug(e)
+
+
+if __name__ == '__main__':
+    extirpate
