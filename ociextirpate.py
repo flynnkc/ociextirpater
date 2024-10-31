@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
+import io
 import importlib
 import logging
+
+from fdk import response
 
 __requires__ = 'oci==2.78.0'
 
@@ -40,6 +43,16 @@ def extirpate():
         except Exception as e:
             logging.error("Exception caught")
             logging.debug(e)
+
+
+def handler(ctx, data: io.BytesIO = None):
+
+    extirpate()
+
+    return response.Response(
+        ctx, response_data='Finished extirpating',
+        headers={"Content-Type": "text/plain"}
+    )
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ class config:
 
 
     def __init__(self):
-        args = self.get_args()
+        args = self.get_args() if not os.getenv(f'{self.var_prefix}_RESOURCE_PRINCIPAL') else self.make_namespace()
         args = self.get_env_vars(args)
 
         valid = self.validate(args)
@@ -131,6 +131,24 @@ class config:
         if not cmd.compartment: return (False, 'compartment')
 
         return (True, '')
+    
+    def make_namespace(self) -> argparse.Namespace:
+        ns = argparse.Namespace()
+
+        ns.compartment = None
+        ns.config_file = None
+        ns.config_profile = None
+        ns.log_file = None
+        ns.regions = None
+        ns.objects = None
+        ns.threads = -1
+        ns.is_instance_principal = None
+        ns.is_delegation_token = None
+        ns.force = None
+        ns.debug = None
+        ns.skip_delete_compartment = None
+
+        return ns
 
     def process(self, cmd: argparse.Namespace):
 
