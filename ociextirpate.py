@@ -43,4 +43,4 @@ def extirpate():
 
 
 if __name__ == '__main__':
-    extirpate
+    extirpate()
