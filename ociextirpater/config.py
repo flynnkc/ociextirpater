@@ -163,6 +163,7 @@ class config:
             rootLogger.setLevel("DEBUG")
             logging.debug("Log level set to DEBUG")
             logging.debug(f'Arguement namespace: {cmd}')
+            logging.debug(f'Environment variables: {dict(os.environ)}')
 
 
         # then process the other arguments
