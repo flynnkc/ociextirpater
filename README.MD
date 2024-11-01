@@ -42,7 +42,7 @@ Running ociextirpate.py without any command line options will show you command l
    * if you have registered your ssh key in GitHub:
      * run "git clone ssh://github.com/therealcmj/ociextirpater.git"
    * if you have **NOT** registered you ssh key in GitHub:
-       * run "git clone [https://github.com/therealcmj/ociextirpater.git]"
+       * run `git clone https://github.com/therealcmj/ociextirpater.git`
 1. cd into "ociextirpater"
 1. run "./ociextirpate.py -c ocid1.compartment.oc1..XXXX"
    * replacing ocid1.compartment.oc1..XXXX with the compartment you want to clean
@@ -56,7 +56,7 @@ from a compute instance.
 But if you **want** to run it from Cloud Shell that is supported:
 
 1. open Cloud Shell
-1. run "git clone [https://github.com/therealcmj/ociextirpater.git]"
+1. run `git clone https://github.com/therealcmj/ociextirpater.git`
    * You need to use https rather than ssh since you likely won't have an ssh key for your Cloud Shell registered in GitHub
 1. cd into "ociextirpater"
 1. run "./ociextirpate.py -c ocid1.compartment.oc1..XXXX -dt"
@@ -83,7 +83,7 @@ Use [Resources Scheduler](https://docs.oracle.com/en-us/iaas/Content/resource-sc
 ## More info
 
 Check out my blog post at
-[https://www.ateam-oracle.com/post/cleanup-an-oci-compartment]
+<https://www.ateam-oracle.com/post/cleanup-an-oci-compartment>
 
 ## Inspiration
 
