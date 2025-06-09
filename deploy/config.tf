@@ -12,3 +12,11 @@ module "compute" {
   ssh_public_key = var.ssh_public_key
   extirpate_compartment = var.extirpate_compartment
 }
+
+module "iam" {
+  source        = "./modules/iam"
+  label = var.label
+  compartment_ocid = var.tenancy_ocid
+  extirpate_compartment = var.extirpate_compartment
+  instance_ocid = module.compute.instance_ocid
+}

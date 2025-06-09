@@ -24,5 +24,6 @@ $VENV/bin/pip install --upgrade pip
 $VENV/bin/pip install -r $EXT_DIR/requirements.txt
 
 echo "#### Setting Crontab ####"
-echo "0 0 * * * $VENV/bin/python $EXT_DIR/ociextirpate.py -ip -force -c $TOBEDELETED" > cron.txt && crontab cron.txt
+echo "0 0 * * * $VENV/bin/python $EXT_DIR/ociextirpate.py -ip -force -c $TOBEDELETED -skip_delete_compartment" > cron.txt
+crontab cron.txt
 echo "Crontab $(crontab -l)"
