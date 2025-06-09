@@ -69,4 +69,16 @@ resource "oci_core_security_list" "this" {
     destination_type = "CIDR_BLOCK"
     protocol = "all"
   }
+
+  ingress_security_rules {
+    description = "Local SSH access for Cloud Shell"
+    protocol = "6"
+    source = "172.16.0.0/26"
+    source_type = "CIDR_BLOCK"
+
+    tcp_options {
+      min = 22
+      max = 22
+    }
+  }
 }
