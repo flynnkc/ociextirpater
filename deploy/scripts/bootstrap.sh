@@ -7,6 +7,7 @@ fi
 # Variables
 EXT_DIR=/usr/local/ociextirpater
 VENV=$EXT_DIR/.venv
+LOG_DIR=/var/log/ociextirpater
 
 # Oracle Autonomous Linux 9
 echo "#### Installing git ####"
@@ -23,7 +24,10 @@ echo "#### Getting Dependencies ####"
 $VENV/bin/pip install --upgrade pip
 $VENV/bin/pip install -r $EXT_DIR/requirements.txt
 
+echo "#### Making Log Directory ####"
+mkdir $LOG_DIR
+
 echo "#### Setting Crontab ####"
-echo "0 0 * * * $VENV/bin/python $EXT_DIR/ociextirpate.py -ip -force -c $TOBEDELETED -skip_delete_compartment" > cron.txt
+echo "0 0 * * * $VENV/bin/python $EXT_DIR/ociextirpate.py -ip -force -c $TOBEDELETED -skip_delete_compartment -log $LOG_DIR/$(date -u +%Y-%m-%d).log" > cron.txt
 crontab cron.txt
-echo "Crontab $(crontab -l)"
+echo "#### Crontab $(crontab -l) ####"
