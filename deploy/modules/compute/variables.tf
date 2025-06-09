@@ -9,3 +9,12 @@ variable "image_id" {
     type = string
     default = "ocid1.image.oc1.iad.aaaaaaaa6dj7xhprldzujybtmg4pqm2apaoyf4tk4jdkuweht3oh6lf6qpaq"
 }
+
+variable "ssh_public_key" {
+    type = string
+    default = null
+}
+
+variable "extirpate_compartment" {
+    type = string
+}

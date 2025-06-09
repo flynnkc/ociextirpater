@@ -17,3 +17,12 @@ variable "label" {
   default = "extirpater"
   type = string
 }
+
+variable "ssh_public_key" {
+  type = string
+  default = null
+}
+
+variable "extirpate_compartment" {
+  type = string
+}

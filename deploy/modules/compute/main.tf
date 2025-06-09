@@ -26,7 +26,10 @@ resource "oci_core_instance" "this" {
     source_type = "image"
   }
 
-  # metadata {}
+  metadata = {
+    ssh_authorized_keys = var.ssh_public_key == null ? "" : var.ssh_public_key
+    user_data = base64encode(format("#!/bin/bash\n%s\n%s", "TOBEDELETED=${var.extirpate_compartment}", file("./scripts/bootstrap.sh")))
+  }
 }
 
 resource "random_integer" "ad" {
