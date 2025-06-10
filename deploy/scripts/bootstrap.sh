@@ -17,6 +17,9 @@ echo "#### Cloning Extirpater Repository ####"
 # clone where??
 git clone --depth 1 https://github.com/therealcmj/ociextirpater.git $EXT_DIR
 
+echo "#### Setting Executable ####"
+chmod +x $EXT_DIR/deploy/scripts/run.sh
+
 # Tested with Python 3.9.21
 echo "#### Creating Virtual Environment ####"
 python -m venv $VENV
@@ -28,6 +31,6 @@ echo "#### Making Log Directory ####"
 mkdir $LOG_DIR
 
 echo "#### Setting Crontab ####"
-echo "0 0 * * * $VENV/bin/python $EXT_DIR/ociextirpate.py -ip -force -c $TOBEDELETED -skip_delete_compartment -log $LOG_DIR/$(date -u +%Y-%m-%d).log" > cron.txt
+echo "0 0 * * * $EXT_DIR/deploy/scripts/run.sh $TOBEDELETED $LOG_DIR" > cron.txt
 crontab cron.txt
 echo "#### Crontab $(crontab -l) ####"
