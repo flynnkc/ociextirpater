@@ -4,6 +4,8 @@ resource "oci_core_instance" "this" {
   preserve_boot_volume = false
 
   #Network
+  # random_integer is an integer between 0 and the number of availability domains - 1
+  # The AD is chosen at random rather than trying to put all computes in any single AD
   availability_domain = data.oci_identity_availability_domains.this.availability_domains[random_integer.ad.result].name
   create_vnic_details {
     subnet_id = var.subnet_ocid
@@ -33,6 +35,6 @@ resource "oci_core_instance" "this" {
 }
 
 resource "random_integer" "ad" {
-  min = 1
-  max = length(data.oci_identity_availability_domains.this.availability_domains)
+  min = 0
+  max = length(data.oci_identity_availability_domains.this.availability_domains) - 1
 }
