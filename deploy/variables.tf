@@ -1,16 +1,20 @@
 variable "tenancy_ocid" {}
-
 variable "user_ocid" {}
-
 variable "private_key_path" {}
-
 variable "fingerprint" {}
-
 variable "private_key_password" {}
-
-variable "compartment_id" {}
-
 variable "region" {}
+
+# Mandatory
+variable "compartment_id" {
+  type = string
+}
+
+variable "extirpate_compartment" {
+  type = string
+}
+
+# Optional
 
 variable "label" {
   # Must be less than 15 characters
@@ -23,6 +27,17 @@ variable "ssh_public_key" {
   default = null
 }
 
-variable "extirpate_compartment" {
+variable "use_existing_network" {
+  type = bool
+  default = false
+}
+
+variable "existing_vcn" {
   type = string
+  default = null
+}
+
+variable "existing_subnet" {
+  type = string
+  default = null
 }

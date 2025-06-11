@@ -2,6 +2,9 @@ module "network" {
   source         = "./modules/network"
   compartment_ocid = var.compartment_id
   label = var.label
+  existing_vcn = var.existing_vcn
+  existing_subnet = var.existing_subnet
+  use_existing_network = var.use_existing_network
 }
 
 module "compute" {
