@@ -14,19 +14,19 @@
 
 | Variable | Type | Required (ORM) | Required (Other Method) | Description |
 | --- | --- | --- | --- | --- |
-| tenancy_ocid | String | [ ] | [x] | OCID of the tenancy to deploy Extirpater |
-| user_ocid | String | [ ] | [x] | OCID of user principal deploying Extirpater |
-| private_key_path | String | [ ] | [x] | Path to private key associated with user principal |
-| fingerprint | String | [ ] | [x] | Fingerprint of key associated with user principal |
-| private_key_password | String | [ ] | [ ] | Password for private key associated with user principal |
-| region | String | [ ] | [x] | OCI Region to deploy Extirpater in |
-| compartment_id | String | [x] | [x] | Compartment to deploy Extirpater resources in |
-| extirpate_compartment | String | [x] | [x] | Compartment to Extirpate (delete stuff) |
-| label | String | [ ] | [ ] | Label to apply to resources deployed by Extirpater |
-| ssh_public_key | String | [ ] | [ ] | SSH public key to add to Oracle Autonomous Linux instance running Extirpater |
-| use_existing_network | Boolean | [ ] | [ ] | Flag to deploy solution to existing network |
-| existing_vcn | String | [ ] | [ ] | OCID of OCI Virtual Cloud Network to deploy Extirpater resources in |
-| existing_subnet | String | [ ] | [ ] | OCID of Subnet in VCN to deploy Extirpater resources in |
+| tenancy_ocid | String |  | :white_check_mark: | OCID of the tenancy to deploy Extirpater |
+| user_ocid | String |  | :white_check_mark: | OCID of user principal deploying Extirpater |
+| private_key_path | String |  | :white_check_mark: | Path to private key associated with user principal |
+| fingerprint | String |  | :white_check_mark: | Fingerprint of key associated with user principal |
+| private_key_password | String |  |  | Password for private key associated with user principal |
+| region | String |  | :white_check_mark: | OCI Region to deploy Extirpater in |
+| compartment_id | String | :white_check_mark: | :white_check_mark: | Compartment to deploy Extirpater resources in |
+| extirpate_compartment | String | :white_check_mark: | :white_check_mark: | Compartment to Extirpate (delete stuff) |
+| label | String |  |  | Label to apply to resources deployed by Extirpater |
+| ssh_public_key | String |  |  | SSH public key to add to Oracle Autonomous Linux instance running Extirpater |
+| use_existing_network | Boolean |  |  | Flag to deploy solution to existing network |
+| existing_vcn | String |  |  | OCID of OCI Virtual Cloud Network to deploy Extirpater resources in |
+| existing_subnet | String |  |  | OCID of Subnet in VCN to deploy Extirpater resources in |
 
 ## Instance Info
 
