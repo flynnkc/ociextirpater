@@ -1,6 +1,6 @@
-# Deploy OCIExtirpater Using OCI Resource Manager
+# Deploy OCIExtirpater
 
-## Steps
+## Using Oracle Resource Manager
 
 1. Click the "Deploy to Oracle Cloud" button and log into your tenancy.
 2. Select compartment to deploy OCIExtirpater resources (Oracle Autonomous Linux Instance, etc.) in.
@@ -33,3 +33,16 @@
 An Oracle Autonomous Linux 9 instance is deployed in a (by default) private subnet. An SSH key can be added by entering the public key in the `ssh_public_key` variable to enable shell access.
 
 Exitirpater will run once a day at 00:00 to delete all resources, except compartments, from the chosen `extirpate_compartment`. Logs for these runs will be kept in `/var/log/ociextirpater`.
+
+## Using OCI's Native Terraform Backend
+
+If deployment is being done with tools other than the Oracle Resource Manager, a small amount of code can be added to [track state remotely in an OCI Object Stroage Bucket](https://blogs.oracle.com/cloud-infrastructure/post/terraform-oci-state-locking-backend). This backend is state-locking so it can be utilized by multiple developers remotely. Simply add the following code:
+
+```HCL
+terraform {
+  backend "oci" {
+    bucket               = "terraform_bucket" # Name of Bucket in OCI
+    namespace            = "namespace" # https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/understandingnamespaces.htm
+  }
+}
+```

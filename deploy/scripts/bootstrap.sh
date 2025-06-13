@@ -14,11 +14,12 @@ echo "#### Installing git ####"
 sudo yum install -y git
 
 echo "#### Cloning Extirpater Repository ####"
-# clone where??
-git clone --depth 1 https://github.com/therealcmj/ociextirpater.git $EXT_DIR
+git clone --depth 1 https://github.com/flynnkc/ociextirpater.git $EXT_DIR # TODO change before merge
+git checkout terraform # TODO Remove before merge
 
-echo "#### Setting Executable ####"
-chmod +x $EXT_DIR/deploy/scripts/run.sh
+echo "#### Setting Executables ####"
+chmod +x $EXT_DIR/deploy/scripts/daily.sh
+chmod +x $EXT_DIR/deploy/scripts/hourly.sh
 
 # Tested with Python 3.9.21
 echo "#### Creating Virtual Environment ####"
@@ -31,6 +32,7 @@ echo "#### Making Log Directory ####"
 mkdir $LOG_DIR
 
 echo "#### Setting Crontab ####"
-echo "0 0 * * * $EXT_DIR/deploy/scripts/run.sh $TOBEDELETED $LOG_DIR" > cron.txt
+echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR" > cron.txt
+echo "30 * * * * $EXT_DIR/deploy/scripts/hourly.sh $TOBEDELETED $LOG_DIR" >> cron.txt
 crontab cron.txt
 echo "#### Crontab $(crontab -l) ####"
