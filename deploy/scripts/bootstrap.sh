@@ -14,8 +14,7 @@ echo "#### Installing git ####"
 sudo yum install -y git
 
 echo "#### Cloning Extirpater Repository ####"
-git clone --depth 1 https://github.com/flynnkc/ociextirpater.git $EXT_DIR # TODO change before merge
-git checkout terraform # TODO Remove before merge
+git clone -b terraform --depth 1 https://github.com/flynnkc/ociextirpater.git $EXT_DIR # TODO change before merge
 
 echo "#### Setting Executables ####"
 chmod +x $EXT_DIR/deploy/scripts/daily.sh
