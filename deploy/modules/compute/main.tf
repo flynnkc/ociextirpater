@@ -24,7 +24,7 @@ resource "oci_core_instance" "this" {
   }
 
   source_details {
-    source_id = data.oci_core_images.this[0].id
+    source_id = data.oci_core_images.this.images[0].id
     source_type = "image"
   }
 

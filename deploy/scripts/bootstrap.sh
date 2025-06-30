@@ -32,6 +32,5 @@ mkdir $LOG_DIR
 
 echo "#### Setting Crontab ####"
 echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR" > cron.txt
-echo "30 * * * * $EXT_DIR/deploy/scripts/hourly.sh $TOBEDELETED $LOG_DIR" >> cron.txt
 crontab cron.txt
 echo "#### Crontab $(crontab -l) ####"
