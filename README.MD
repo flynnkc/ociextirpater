@@ -62,6 +62,12 @@ But if you **want** to run it from Cloud Shell that is supported:
 1. run "./ociextirpate.py -c ocid1.compartment.oc1..XXXX -dt"
    * replacing ocid1.compartment.oc1..XXXX with the compartment you want to clean
 
+### Automated Deployment
+
+Use Terraform to deploy an Oracle Autonomous Linux VM running OCI Extirpater on a daily schedule. A compartment is designated for "cleanup" of resources that will be terminated by the script. Move resources to the "cleanup" compartment to be terminated on the next run, or move entire compartments and their contents to easily terminate all associated resources.
+
+[Learn how to deploy here](./deploy/README.md)
+
 ## More info
 
 ### Blog post and more information

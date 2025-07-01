@@ -1,5 +1,7 @@
 # Deploy OCIExtirpater
 
+![OCI Extirpater Architecture (Basic)](./images/extirpater.png)
+
 ## Using Oracle Resource Manager
 
 1. Click the "Deploy to Oracle Cloud" button and log into your tenancy.
@@ -21,7 +23,7 @@
 | private_key_password | String |  |  | Password for private key associated with user principal |
 | region | String |  | :white_check_mark: | OCI Region to deploy Extirpater in |
 | compartment_id | String | :white_check_mark: | :white_check_mark: | Compartment to deploy Extirpater resources in |
-| extirpate_compartment | String | :white_check_mark: | :white_check_mark: | Compartment to Extirpate (delete stuff) |
+| cleanup_compartment | String | :white_check_mark: | :white_check_mark: | Compartment to Extirpate (delete stuff) |
 | label | String |  |  | Label to apply to resources deployed by Extirpater |
 | ssh_public_key | String |  |  | SSH public key to add to Oracle Autonomous Linux instance running Extirpater |
 | use_existing_network | Boolean |  |  | Flag to deploy solution to existing network |
@@ -33,6 +35,19 @@
 An Oracle Autonomous Linux 9 instance is deployed in a (by default) private subnet. An SSH key can be added by entering the public key in the `ssh_public_key` variable to enable shell access.
 
 Exitirpater will run once a day at 00:00 to delete all resources, except compartments, from the chosen `extirpate_compartment`. Logs for these runs will be kept in `/var/log/ociextirpater`.
+
+### Requirements
+
+- One AMD EPYC E5 Flex instance with 1 OCPU and 8 Gb Memory
+- One Dynamic Group on the Default Identity Domain
+- One OCI Policy to give Dynamic Groups permissions on deletion compartment
+- The Extirpater instance requires a subnet with either:
+
+  - A NAT Gateway and Service Gateway for accessing updates, repository access, and control plane connectivity and associated route rules
+
+  Or
+
+  - An Internet Gateway with routes to the internet
 
 ## Using OCI's Native Terraform Backend
 

@@ -10,7 +10,7 @@ variable "compartment_id" {
   type = string
 }
 
-variable "extirpate_compartment" {
+variable "cleanup_compartment" {
   type = string
 }
 
@@ -24,7 +24,7 @@ variable "label" {
 
 variable "ssh_public_key" {
   type = string
-  default = null
+  default = ""
 }
 
 variable "use_existing_network" {
