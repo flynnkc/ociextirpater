@@ -7,5 +7,5 @@ output "instance_id" {
 }
 
 output "extirpater_tag" {
-  value = module.iam.extirpater_tag
+  value = module.governance.extirpater_tag
 }

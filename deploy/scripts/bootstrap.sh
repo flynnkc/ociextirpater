@@ -18,7 +18,6 @@ git clone -b terraform --depth 1 https://github.com/flynnkc/ociextirpater.git $E
 
 echo "#### Setting Executables ####"
 chmod 550 $EXT_DIR/deploy/scripts/daily.sh
-chmod 550 $EXT_DIR/deploy/scripts/hourly.sh
 
 # Tested with Python 3.9.21
 echo "#### Creating Virtual Environment ####"
@@ -31,6 +30,6 @@ echo "#### Making Log Directory ####"
 mkdir $LOG_DIR
 
 echo "#### Setting Crontab ####"
-echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR" > cron.txt
+echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR $EXT_TAG" > cron.txt
 crontab cron.txt
 echo "#### Crontab $(crontab -l) ####"
