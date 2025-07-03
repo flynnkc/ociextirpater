@@ -5,3 +5,7 @@ output "image" {
 output "instance_id" {
     value = module.compute.instance_ocid
 }
+
+output "extirpater_tag" {
+  value = module.iam.extirpater_tag
+}

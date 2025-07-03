@@ -5,11 +5,6 @@ variable "fingerprint" {}
 variable "private_key_password" {}
 variable "region" {}
 
-# Mandatory
-variable "compartment_id" {
-  type = string
-}
-
 variable "cleanup_compartment" {
   type = string
 }

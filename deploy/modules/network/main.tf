@@ -1,17 +1,21 @@
 resource "oci_core_vcn" "this" {
     count = var.use_existing_network ? 0 : 1
 
-    compartment_id = var.compartment_ocid
+    compartment_id = var.extirpate_compartment
 
     cidr_block = "172.16.0.0/26"
     display_name = "${var.label}-vcn"
     dns_label = "${var.label}"
+
+    defined_tags = {
+      "${var.extirpater_tag}" = "True"
+    }
 }
 
 resource "oci_core_subnet" "this" {
   count = var.use_existing_network ? 0 : 1
 
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   cidr_block = "172.16.0.0/28"
   vcn_id = oci_core_vcn.this[0].id
   display_name = "${var.label}-subnet"
@@ -20,20 +24,28 @@ resource "oci_core_subnet" "this" {
   route_table_id = oci_core_route_table.this[0].id
   prohibit_internet_ingress = true
   security_list_ids = [ oci_core_security_list.this[0].id ]
+
+  defined_tags = {
+    "${var.extirpater_tag}" = "True"
+    }
 }
 
 resource "oci_core_nat_gateway" "this" {
   count = var.use_existing_network ? 0 : 1
 
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   vcn_id = oci_core_vcn.this[0].id
   display_name = "${var.label}-nat-gateway"
+
+  defined_tags = {
+  "${var.extirpater_tag}" = "True"
+  }
 }
 
 resource "oci_core_service_gateway" "this" {
   count = var.use_existing_network ? 0 : 1
 
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   vcn_id = oci_core_vcn.this[0].id
   display_name = "${var.label}-service-gateway"
   #route_table_id = oci_core_route_table.this.id
@@ -41,12 +53,16 @@ resource "oci_core_service_gateway" "this" {
   services {
     service_id = data.oci_core_services.this.services[0]["id"]
   }
+
+  defined_tags = {
+    "${var.extirpater_tag}" = "True"
+    }
 }
 
 resource "oci_core_route_table" "this" {
   count = var.use_existing_network ? 0 : 1
 
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   vcn_id = oci_core_vcn.this[0].id
   display_name = "${var.label}-route-table"
 
@@ -61,12 +77,16 @@ resource "oci_core_route_table" "this" {
     destination_type = "SERVICE_CIDR_BLOCK"
     network_entity_id = oci_core_service_gateway.this[0].id
   }
+
+  defined_tags = {
+    "${var.extirpater_tag}" = "True"
+    }
 }
 
 resource "oci_core_security_list" "this" {
   count = var.use_existing_network ? 0 : 1
 
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   vcn_id = oci_core_vcn.this[0].id
   display_name = "${var.label}-security-list"
 
@@ -93,4 +113,8 @@ resource "oci_core_security_list" "this" {
       max = 22
     }
   }
+
+  defined_tags = {
+    "${var.extirpater_tag}" = "True"
+    }
 }

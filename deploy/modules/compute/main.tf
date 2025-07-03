@@ -1,5 +1,5 @@
 resource "oci_core_instance" "this" {
-  compartment_id = var.compartment_ocid
+  compartment_id = var.extirpate_compartment
   display_name = "${var.label}-instance"
   preserve_boot_volume = false
 
@@ -32,6 +32,10 @@ resource "oci_core_instance" "this" {
     ssh_authorized_keys = var.ssh_public_key == null ? "" : var.ssh_public_key
     user_data = base64encode(format("#!/bin/bash\n%s\n%s", "TOBEDELETED=${var.extirpate_compartment}", file("./scripts/bootstrap.sh")))
   }
+
+  defined_tags = {
+    "${var.extirpater_tag}" = "True"
+    }
 }
 
 resource "random_integer" "ad" {
