@@ -29,7 +29,7 @@ module "iam" {
   label = var.label
   compartment_ocid = var.tenancy_ocid
   extirpate_compartment = var.cleanup_compartment
-  instance_ocid = module.compute.instance_ocid
+  instance_ocid = module.compute.instance.id
   extirpater_tag = module.governance.extirpater_tag
 }
 

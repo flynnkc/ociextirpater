@@ -1,5 +1,5 @@
-output "instance_ocid" {
-  value = oci_core_instance.this.id
+output "instance" {
+  value = oci_core_instance.this
 }
 
 output "ol_image" {
