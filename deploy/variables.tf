@@ -1,8 +1,16 @@
 variable "tenancy_ocid" {}
-variable "user_ocid" {}
-variable "private_key_path" {}
-variable "fingerprint" {}
-variable "private_key_password" {}
+variable "user_ocid" {
+  default = null
+}
+variable "private_key_path" {
+  default = null
+}
+variable "fingerprint" {
+  default = null
+}
+variable "private_key_password" {
+  default = null
+}
 variable "region" {}
 
 variable "cleanup_compartment" {

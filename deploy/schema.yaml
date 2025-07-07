@@ -8,16 +8,21 @@ locale: "en"
 variableGroups:
   - title: Main
     variables:
-      - compartment_id
-      - extirpate_compartment
+      - cleanup_compartment
       - label
       - ssh_public_key
       - use_existing_network
+      - use_existing_tag
   - title: Network
     variables:
+      - network_compartment
       - existing_vcn
       - existing_subnet
     visible: use_existing_network
+  - title: Tagging
+    variables:
+      - existing_tag
+    visible: use_existing_tag
   - title: Hidden
     variables:
       - tenancy_ocid
@@ -29,16 +34,10 @@ variableGroups:
     visible: false
 
 variables:
-  compartment_id:
-    title: Resource Compartment OCID
+  cleanup_compartment:
+    title: Cleanup Compartment OCID
     type: oci:identity:compartment:id
-    description: "Compartment to deploy Extirpater resources"
-    required: true
-
-  extirpate_compartment:
-    title: Compartment to Extirpate
-    type: oci:identity:compartment:id
-    description: "Compartment to run Extirpater on in tenancy (Recycle Bin Compartment)"
+    description: "Compartment to deploy Extirpater resources and destroy all other resources"
     required: true
 
   label:
@@ -65,13 +64,17 @@ variables:
     required: true
     default: false
 
+  network_compartment:
+    title: Existing VCN Compartment
+    type: oci:identity:compartment:id
+
   existing_vcn:
     title: Existing VCN
     type: oci:core:vcn:id
     description: Existing VCN to deploy instance on
     required: true
     dependsOn:
-      compartmentId: compartment_id
+      compartmentId: ${network_compartment}
 
   existing_subnet:
     title: Existing Subnet
@@ -79,7 +82,19 @@ variables:
     description: Existing subnet to deploy instance on
     required: true
     dependsOn:
-      compartmentId: compartment_id
+      vcnId: ${existing_vcn}
+      compartmentId: ${network_compartment}
+
+  use_existing_tag:
+    title: Use Existing Tag
+    type: boolean
+    description: Use existing tag namespace and tag
+    default: false
+
+  existing_tag:
+    title: Existing Tag
+    type: String
+    description: Existing tag in format <strong>tagNamespace.tag</strong>
 
   # Hidden
   tenancy_ocid:
