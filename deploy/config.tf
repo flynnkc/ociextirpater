@@ -37,4 +37,6 @@ module "governance" {
   source        = "./modules/governance"
   label = var.label
   compartment_ocid = var.tenancy_ocid
+  use_existing_tag = var.use_existing_tag
+  existing_tag = var.existing_tag
 }

@@ -36,3 +36,13 @@ variable "existing_subnet" {
   type = string
   default = null
 }
+
+variable "use_existing_tag" {
+  type = bool
+  default = false
+}
+
+variable "existing_tag" {
+  type = string
+  default = null
+}
