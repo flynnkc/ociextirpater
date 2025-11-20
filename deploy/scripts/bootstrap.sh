@@ -4,6 +4,7 @@ EXT_DIR=/usr/local/ociextirpater
 VENV=$EXT_DIR/.venv
 LOG_DIR=/var/log/ociextirpater
 MAX_ATTEMPTS=5
+TIMEOUT=5
 USER=extirpate
 DELAY=60
 
@@ -19,7 +20,7 @@ attempt_with_retry() {
       return 0
     else
       echo "Failed. Retrying in 5 seconds..."
-      sleep 5
+      sleep $TIMEOUT
       attempt=$((attempt + 1))
     fi
   done
@@ -39,8 +40,7 @@ if [ $? -eq 1 ]; then
 fi
 
 echo "#### Cloning Extirpater Repository ####"
-#attempt_with_retry "git clone --depth 1 https://github.com/therealcmj/ociextirpater.git $EXT_DIR"
-attempt_with_retry "git clone -b terraform --depth 1 https://github.com/flynnkc/ociextirpater.git $EXT_DIR"
+attempt_with_retry "git clone --depth 1 https://github.com/therealcmj/ociextirpater.git $EXT_DIR"
 if [ $? -eq 1 ]; then
   exit 1
 fi
@@ -77,4 +77,4 @@ restorecon -Rv /var/log/ociextirpater
 echo "#### Setting Crontab ####"
 echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR $EXT_TAG" > cron.txt
 crontab -u $USER cron.txt
-echo "#### Crontab $(crontab -l) ####"
+echo "#### Crontab $(crontab -u $USER -l) ####"
