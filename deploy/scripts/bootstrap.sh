@@ -5,6 +5,7 @@ VENV=$EXT_DIR/.venv
 LOG_DIR=/var/log/ociextirpater
 MAX_ATTEMPTS=5
 USER=extirpate
+DELAY=60
 
 echo "#### Creating Extirpater user: $USER ####"
 useradd --system -M $USER
@@ -25,6 +26,10 @@ attempt_with_retry() {
   echo "Failed after $MAX_ATTEMPTS attempts."
   return 1
 }
+
+# Delay for normalization before network operations
+echo "#### Sleeping $DELAY seconds ####"
+sleep $DELAY
 
 # Oracle Autonomous Linux 9
 echo "#### Installing git ####"
