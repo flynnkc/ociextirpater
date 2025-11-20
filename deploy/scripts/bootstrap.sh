@@ -44,9 +44,12 @@ attempt_with_retry "git clone -b terraform --depth 1 https://github.com/flynnkc/
 if [ $? -eq 1 ]; then
   exit 1
 fi
+chown -R root:$USER $EXT_DIR
+chmod -R 750 $EXT_DIR
+git config --system --add safe.directory $EXT_DIR
 
 echo "#### Setting Executables: $EXT_DIR/deploy/scripts/daily.sh ####"
-chown root:extirpate $EXT_DIR/deploy/scripts/daily.sh
+chown root:$USER $EXT_DIR/deploy/scripts/daily.sh
 chmod 750 $EXT_DIR/deploy/scripts/daily.sh
 
 # Tested with Python 3.9.21
@@ -73,5 +76,5 @@ restorecon -Rv /var/log/ociextirpater
 
 echo "#### Setting Crontab ####"
 echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR $EXT_TAG" > cron.txt
-crontab cron.txt
+crontab -u $USER cron.txt
 echo "#### Crontab $(crontab -l) ####"
