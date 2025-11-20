@@ -4,6 +4,10 @@ EXT_DIR=/usr/local/ociextirpater
 VENV=$EXT_DIR/.venv
 LOG_DIR=/var/log/ociextirpater
 MAX_ATTEMPTS=5
+USER=extirpate
+
+echo "#### Creating Extirpater user: $USER ####"
+useradd --system -M $USER
 
 # Function to attempt a command with retries
 attempt_with_retry() {
@@ -36,11 +40,12 @@ if [ $? -eq 1 ]; then
   exit 1
 fi
 
-echo "#### Setting Executables ####"
-chmod 550 $EXT_DIR/deploy/scripts/daily.sh
+echo "#### Setting Executables: $EXT_DIR/deploy/scripts/daily.sh ####"
+chown root:extirpate $EXT_DIR/deploy/scripts/daily.sh
+chmod 750 $EXT_DIR/deploy/scripts/daily.sh
 
 # Tested with Python 3.9.21
-echo "#### Creating Virtual Environment ####"
+echo "#### Creating Virtual Environment: $VENV ####"
 attempt_with_retry "python -m venv $VENV"
 if [ $? -eq 1 ]; then
   exit 1
@@ -54,8 +59,12 @@ if [ $? -eq 1 ]; then
   exit 1
 fi
 
-echo "#### Making Log Directory ####"
-mkdir $LOG_DIR
+echo "#### Making Log Directory: $LOG_DIR ####"
+mkdir -p $LOG_DIR
+chown $USER:$USER $LOG_DIR
+chmod 2750 $LOG_DIR
+semanage fcontext -a -t var_log_t '/var/log/ociextirpater(/.*)?'
+restorecon -Rv /var/log/ociextirpater
 
 echo "#### Setting Crontab ####"
 echo "0 0 * * * $EXT_DIR/deploy/scripts/daily.sh $TOBEDELETED $LOG_DIR $EXT_TAG" > cron.txt
