@@ -24,9 +24,11 @@ module "iam" {
   label = var.label
   root_compartment = var.tenancy_ocid
   extirpate_compartment = var.cleanup_compartment
+  resources_compartment = local.resources_compartment
   instance_ocid = module.compute.instance.id
   extirpater_tag = var.extirpater_tag
-  deploy_in_root = length(var.deployment_compartment) > 0
+  #deploy_in_root = length(var.deployment_compartment) > 0
+  deploy_in_root = false
   scheduler_id = [ module.schedule.scheduler_id_on, module.schedule.scheduler_id_off ]
 }
 

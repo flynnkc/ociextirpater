@@ -19,7 +19,7 @@ resource "oci_core_instance" "this" {
   shape = "VM.Standard.E5.Flex"
 
   shape_config {
-    memory_in_gbs = 8
+    memory_in_gbs = 6
     ocpus = 1
   }
 
