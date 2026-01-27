@@ -1,25 +1,25 @@
 resource "oci_identity_dynamic_group" "this" {
-    # Keeping in root to match default domain
-    compartment_id = var.root_compartment
-    description = "Dynamic Group for OCIExtirpater Instance"
-    name = "${var.label}-dynamic-group"
-    matching_rule = "All {instance.id = '${var.instance_ocid}'}"
+  # Keeping in root to match default domain
+  compartment_id = var.root_compartment
+  description    = "Dynamic Group for OCIExtirpater Instance"
+  name           = "${var.label}-dynamic-group"
+  matching_rule  = "All {instance.id = '${var.instance_ocid}'}"
 }
 
 resource "oci_identity_policy" "extirpate" {
-    compartment_id = var.deploy_in_root ? var.root_compartment : var.extirpate_compartment
-    description = "Policies for OCIExtirpater"
-    name = "${var.label}-policy"
-    statements = [ "Allow dynamic-group ${oci_identity_dynamic_group.this.name} to manage all-resources in compartment id ${var.extirpate_compartment}" ]
+  compartment_id = var.deploy_in_root ? var.root_compartment : var.extirpate_compartment
+  description    = "Policies for OCIExtirpater"
+  name           = "${var.label}-policy"
+  statements     = ["Allow dynamic-group ${oci_identity_dynamic_group.this.name} to manage all-resources in compartment id ${var.extirpate_compartment}"]
 
-    freeform_tags = var.extirpater_tag
+  freeform_tags = var.extirpater_tag
 }
 
 resource "oci_identity_policy" "schedules" {
-    compartment_id = var.resources_compartment
-    description = "Enable Resource Scheduler to manage Extirpater instance"
-    name = "${var.label}-schedule-policy"
-    statements = local.statements
+  compartment_id = var.resources_compartment
+  description    = "Enable Resource Scheduler to manage Extirpater instance"
+  name           = "${var.label}-schedule-policy"
+  statements     = local.statements
 
-    freeform_tags = var.extirpater_tag
+  freeform_tags = var.extirpater_tag
 }

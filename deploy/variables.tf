@@ -20,14 +20,14 @@ variable "cleanup_compartment" {
 # Optional
 
 variable "deployment_compartment" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "label" {
   # Must be less than 15 characters
   default = "extirpater"
-  type = string
+  type    = string
 
   validation {
     condition     = length(var.label) < 15
@@ -36,27 +36,27 @@ variable "label" {
 }
 
 variable "ssh_public_key" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "use_existing_network" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "existing_vcn" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "existing_subnet" {
-  type = string
+  type    = string
   default = null
 }
 
 # Tag to tell Extirpater to skip deletion of resource
 variable "extirpater_tag" {
-  type = map(string)
-  default = {extirpater_skip = "true"}
+  type    = map(string)
+  default = { extirpater_skip = "true" }
 }
