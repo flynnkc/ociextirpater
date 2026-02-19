@@ -5,7 +5,7 @@ module "network" {
   existing_vcn         = var.existing_vcn
   existing_subnet      = var.existing_subnet
   use_existing_network = var.use_existing_network
-  network_compartment  = local.resources_compartment
+  network_compartment  = local.networks_compartment
 }
 
 module "compute" {
@@ -27,8 +27,7 @@ module "iam" {
   resources_compartment = local.resources_compartment
   instance_ocid         = module.compute.instance.id
   extirpater_tag        = var.extirpater_tag
-  #deploy_in_root = length(var.deployment_compartment) > 0
-  deploy_in_root = false
+  deploy_in_root = var.use_deployment_compartment
   scheduler_id   = [module.schedule.scheduler_id_on, module.schedule.scheduler_id_off]
 }
 

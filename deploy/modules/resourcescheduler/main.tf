@@ -1,7 +1,7 @@
 resource "oci_resource_scheduler_schedule" "on" {
   action             = "START_RESOURCE"
   compartment_id     = var.compartment_id
-  recurrence_details = "0 0 * * *"
+  recurrence_details = "45 0 * * *"
   recurrence_type    = "CRON"
 
   resources {
@@ -9,14 +9,14 @@ resource "oci_resource_scheduler_schedule" "on" {
   }
 
   display_name  = "Extirpater-Start"
-  description   = "Schedule to start extirpater instance at 23:00 UTC"
+  description   = "Schedule to start extirpater instance"
   freeform_tags = var.extirpater_tag
 }
 
 resource "oci_resource_scheduler_schedule" "off" {
   action             = "STOP_RESOURCE"
   compartment_id     = var.compartment_id
-  recurrence_details = "0 4 * * *"
+  recurrence_details = "45 5 * * *"
   recurrence_type    = "CRON"
 
   resources {
@@ -24,6 +24,6 @@ resource "oci_resource_scheduler_schedule" "off" {
   }
 
   display_name  = "Extirpater-Stop"
-  description   = "Schedule to stop extirpater instance at 02:00 UTC"
+  description   = "Schedule to stop extirpater instance"
   freeform_tags = var.extirpater_tag
 }
